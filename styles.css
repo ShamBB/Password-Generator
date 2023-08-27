@@ -69,18 +69,19 @@ Layout
   /* grid-column-gap: 2em; */
 }
 
-.col {
-  grid-column: 2 / -2;
-}
-
 .flexbox {
   display: flex;
 }
 
 .container {
+  grid-column: 2 / -2;
   background-color: #1f2937;
   padding: 7em 2.5em;
   border-radius: 7px;
+}
+
+.container > * {
+  justify-self: center;
 }
 
 .horizontal-line {
@@ -103,6 +104,8 @@ Layout
   justify-content: center;
   align-items: center;
   word-wrap: break-word;
+  text-align: center;
+  padding: 1em;
 }
 
 .pwd-container:first-child {
@@ -115,6 +118,6 @@ Layout
   }
 
   .pwd-container:first-child {
-    margin: 0 1em 0;
+    margin: 0 1em 0 0;
   }
 }

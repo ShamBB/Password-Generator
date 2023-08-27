@@ -101,7 +101,7 @@ function randomIndex() {
 
 function randomPassword() {
   let password = "";
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 16; i++) {
     password += characters[randomIndex()];
   }
   return password;
