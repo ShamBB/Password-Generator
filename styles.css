@@ -102,6 +102,7 @@ Layout
 .pwd-section {
   justify-content: space-between;
   flex-direction: column;
+  position: relative;
 }
 
 .pwd-container {
@@ -113,11 +114,49 @@ Layout
   align-items: center;
   word-wrap: break-word;
   text-align: center;
+  position: relative;
   padding: 1em;
 }
 
-.pwd-container:first-child {
-  margin-bottom: 1em;
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Tooltip content */
+.tooltip .tooltip-text {
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+  padding: 5px 0;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  min-width: 150px;
+  text-align: center;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  right: 50%;
+  margin-right: -8px;
+  border-width: 7px;
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
 }
 
 @media (min-width: 490px) {
@@ -125,8 +164,8 @@ Layout
     flex-direction: row;
   }
 
-  .pwd-container:first-child {
-    margin-right: 1em;
+  .tooltip:last-child {
+    margin-left: 1em;
   }
 }
 

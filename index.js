@@ -75,6 +75,62 @@ function randomPassword(passwordLength) {
 }
 
 function generatePassword() {
-  passwordsFirst.textContent = randomPassword(passLengthEl.value);
-  passwordsSecond.textContent = randomPassword(passLengthEl.value);
+  passwordsFirst.innerHTML = randomPassword(passLengthEl.value);
+  passwordsSecond.innerHTML = randomPassword(passLengthEl.value);
 }
+
+function handleCopyToClipboard(event, tooltipClass) {
+  const clickedElement = event.target;
+  console.log(clickedElement);
+
+  // Copy text to clipboard
+  navigator.clipboard.writeText(clickedElement.textContent);
+
+  // Find the next sibling element with the specified class and update its text content
+  const tooltipElement = clickedElement.nextElementSibling;
+
+  if (tooltipElement && tooltipElement.classList.contains(tooltipClass)) {
+    console.log(tooltipElement);
+    tooltipElement.textContent = "Copied";
+  }
+}
+
+function resettooltipText(event) {
+  const mouseOutElement = event.target;
+  const tooltipElement = mouseOutElement.nextElementSibling;
+
+  if (tooltipElement && tooltipElement.classList.contains("tooltip-text")) {
+    console.log(tooltipElement);
+    if (tooltipElement.textContent == "Copied") {
+      tooltipElement.textContent = "Copy to text";
+    }
+  }
+}
+
+passwordsFirst.addEventListener("click", (event) => {
+  handleCopyToClipboard(event, "tooltip-text");
+});
+
+passwordsSecond.addEventListener("click", (event) => {
+  handleCopyToClipboard(event, "tooltip-text");
+});
+
+passwordsFirst.addEventListener("mouseover", (event) => {
+  resettooltipText(event);
+});
+
+passwordsSecond.addEventListener("mouseover", (event) => {
+  resettooltipText(event);
+});
+
+const tooltips = document.querySelectorAll(".tooltip");
+
+tooltips.forEach((tooltip) => {
+  const tooltipText = tooltip.getAttribute("data-title");
+  const tooltipElement = document.createElement("div");
+  tooltipElement.className = "tooltip-text";
+  tooltipElement.textContent = tooltipText;
+  tooltip.appendChild(tooltipElement);
+});
+
+// Tooltips
