@@ -1,113 +1,80 @@
-const characters = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-  "0",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "~",
-  "`",
-  "!",
-  "@",
-  "#",
-  "$",
-  "%",
-  "^",
-  "&",
-  "*",
-  "(",
-  ")",
-  "_",
-  "-",
-  "+",
-  "=",
-  "{",
-  "[",
-  "}",
-  "]",
-  ",",
-  "|",
-  ":",
-  ";",
-  "<",
-  ">",
-  ".",
-  "?",
-  "/",
-];
+const characters = [...Array(26).keys()]
+  .map((i) => String.fromCharCode(65 + i)) // A-Z
+  .concat([...Array(26).keys()].map((i) => String.fromCharCode(97 + i))) // a-z
+  .concat([...Array(10).keys()].map((i) => String.fromCharCode(48 + i))) // 0-9
+  .concat([
+    "~",
+    "`",
+    "!",
+    "@",
+    "#",
+    "$",
+    "%",
+    "^",
+    "&",
+    "*",
+    "(",
+    ")",
+    "_",
+    "-",
+    "+",
+    "=",
+    "{",
+    "[",
+    "}",
+    "]",
+    ",",
+    "|",
+    ":",
+    ";",
+    "<",
+    ">",
+    ".",
+    "?",
+    "/",
+  ]);
 
-let passwordsFirst = document.getElementById("firstPasswordText");
-let passwordsSecond = document.getElementById("secondPasswordText");
+const passwordsFirst = document.getElementById("firstPasswordText");
+const passwordsSecond = document.getElementById("secondPasswordText");
+const passLengthEl = document.getElementById("passlengthEl");
+const symbolCheckEL = document.getElementById("symbolCheck");
+const numberCheckEL = document.getElementById("numberCheck");
+const numberArray = characters.filter((char) => /[0-9]/.test(char));
+const characterArray = characters.filter((char) => /[a-zA-Z]/.test(char));
+const symbolArray = characters.filter((char) => !/[a-zA-Z0-9]/.test(char));
 
-function randomIndex() {
-  return Math.floor(Math.random() * characters.length);
+function randomIndex(arrayLength) {
+  return Math.floor(Math.random() * arrayLength);
 }
 
-function randomPassword() {
+function randomPassword(passwordLength) {
   let password = "";
-  for (let i = 0; i < 16; i++) {
-    password += characters[randomIndex()];
+  let arrayChoices = [];
+  let arrLength = 0;
+  const isSymbolChecked = symbolCheckEL.checked;
+  const isNumberChecked = numberCheckEL.checked;
+
+  if (isSymbolChecked && isNumberChecked) {
+    arrayChoices = characters;
+    arrLength = characters.length;
+  } else if (isNumberChecked) {
+    arrayChoices = numberArray.concat(characterArray);
+    arrLength = numberArray.length + characterArray.length;
+  } else if (isSymbolChecked) {
+    arrayChoices = symbolArray.concat(characterArray);
+    arrLength = symbolArray.length + characterArray.length;
+  } else {
+    arrayChoices = characterArray;
+    arrLength = characterArray.length;
+  }
+
+  for (let i = 0; i < passwordLength; i++) {
+    password += arrayChoices[randomIndex(arrLength)];
   }
   return password;
 }
 
 function generatePassword() {
-  passwordsFirst.textContent = randomPassword();
-  passwordsSecond.textContent = randomPassword();
+  passwordsFirst.textContent = randomPassword(passLengthEl.value);
+  passwordsSecond.textContent = randomPassword(passLengthEl.value);
 }

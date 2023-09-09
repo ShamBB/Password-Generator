@@ -21,15 +21,41 @@
           Generate a <span class="accent-color">random password</span>
         </h1>
         <p class="subtitle">Never use an insecure password again.</p>
-        <button type="button" class="btn" onclick="generatePassword()">
-          Generate passwords
-        </button>
+
+        <div class="form flexbox">
+          <input
+            type="number"
+            id="passlengthEl"
+            placeholder="password length"
+            value="16"
+          />
+
+          <div class="checkbox-group">
+            <input
+              type="checkbox"
+              id="numberCheck"
+              name="numberCheck"
+              value="number"
+            />
+            <label for="numberCheck">Number</label>
+            <input
+              type="checkbox"
+              id="symbolCheck"
+              name="symbolCheck"
+              value="symbol"
+            />
+            <label for="symbolCheck">Symbol</label>
+          </div>
+
+          <button type="button" class="btn" onclick="generatePassword()">
+            Generate passwords
+          </button>
+        </div>
+
         <div class="horizontal-line"></div>
         <div class="flexbox pwd-section">
-          <p class="pwd-container" id="firstPasswordText">1222222222</p>
-          <div class="pwd-container" id="secondPasswordText">
-            <p></p>
-          </div>
+          <p class="pwd-container" id="firstPasswordText"></p>
+          <p class="pwd-container" id="secondPasswordText"></p>
         </div>
       </div>
     </div>
