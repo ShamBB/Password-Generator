@@ -1,6 +1,6 @@
 # Password Generator
  A simple password generator.
- live website :- https://app.netlify.com/sites/pwd-generator-simple/overview
+ live website :- https://pwd-generator-simple.netlify.app/
 
 # Simple Password Generator
 # Overview
